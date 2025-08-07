@@ -10,7 +10,7 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5
+sudo pacman -S --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator
 
 git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
@@ -71,7 +71,16 @@ mkdir ~/.themes/
 cp -rf colloid* ~/.themes/
 gsettings set org.gnome.desktop.interface gtk-theme "colloid"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-gsettings set org.gnome.desktop.interface font-name "JetBrainsMono Semibold 11"
+gsettings set org.gnome.desktop.interface font-name "JetBrainsMono Semibold 8"
+gsettings set org.gnome.desktop.interface gtk-theme 'colloid'
+gsettings set org.gnome.desktop.interface icon-theme 'Numix'
+gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+mkdir -p ~/.config/gtk-3.0
+echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-3.0/settings.ini
+mkdir -p ~/.config/gtk-4.0
+echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-4.0/settings.ini
+echo 'gtk-theme-name="colloid"' > ~/.gtkrc-2.0
 
 mkdir ~/.icons/ 
 cp -rf Numix ~/.icons/
@@ -91,5 +100,23 @@ sudo cp -rf sddm-sugar-candy-master/ /usr/share/sddm/themes/
 sudo rm -rf /etc/sddm.conf
 sudo cp sddm.conf /etc/
 
+mkdir -p ~/.config/gtk-3.0
+echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-3.0/settings.ini
+mkdir -p ~/.config/gtk-4.0
+echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-4.0/settings.ini
+echo 'gtk-theme-name="colloid"' > ~/.gtkrc-2.0
+echo 'export GTK_THEME=colloid' >> ~/.xprofile
 echo "done! rebooting now..."
+
+sudo mkdir -p /etc/X11/xorg.conf.d && sudo tee /etc/X11/xorg.conf.d/90-touchpad.conf > /dev/null <<EOF
+Section "InputClass"
+    Identifier "touchpad"
+    MatchIsTouchpad "on"
+    Driver "libinput"
+    Option "Tapping" "on"
+    Option "NaturalScrolling" "true"
+    Option "TappingButtonMap" "lrm"  # 1/2/3 finger tap buttons (left, right, middle)
+EndSection
+EOF
+
 reboot
