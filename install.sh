@@ -12,6 +12,10 @@ sudo pacman -Sy --noconfirm
 
 sudo pacman -S --noconfirm --needed git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrinas-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5
 
+git clone https://aur.archlinux.org/paru-git.git
+cd paru-git
+makepkg -si
+cd ..
 paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin
 
 sudo timedatectl set-timezone America/Chicago
