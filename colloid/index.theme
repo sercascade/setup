@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=colloid-Orange-Dark-Compact-Nord
+Comment=An Flat Gtk+ theme based on Elegant Design
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=colloid-Orange-Dark-Compact-Nord
+MetacityTheme=colloid-Orange-Dark-Compact-Nord
+IconTheme=Colloid-Orange-Nord-Dark
+CursorTheme=colloid-cursors
+ButtonLayout=close,minimize,maximize:menu

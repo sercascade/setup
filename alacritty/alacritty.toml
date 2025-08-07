@@ -1,0 +1,68 @@
+[colors.primary]
+background = "#0c1219"
+foreground = "#aaacc1"
+
+[colors.cursor]
+cursor = "#aaacc1"
+text = "CellBackground"
+
+[colors.normal]
+black   = "#1e222a" # color0
+red     = "#963C46" # color1
+green   = "#A45C53" # color2
+yellow  = "#D06B4F" # color3
+blue    = "#F08C30" # color4
+magenta = "#E29858" # color5
+cyan    = "#D1B066" # color6
+white   = "#aaacc1" # color7
+
+[colors.bright]
+black   = "#1e222a" # color8
+red     = "#963C46" # color9
+green   = "#A45C53" # color10
+yellow  = "#D06B4F" # color11
+blue    = "#F08C30" # color12
+magenta = "#E29858" # color13
+cyan    = "#D1B066" # color14
+white   = "#aaacc1" # color15
+
+[cursor]
+blink_interval = 270
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "On"
+shape = "Underline"
+
+[font]
+size = 7.0
+
+[font.bold]
+family = "Jetbrains Mono Nerd Font"
+
+[font.bold_italic]
+family = "Jetbrains Mono Nerd Font"
+
+[font.italic]
+family = "Jetbrains Mono Nerd Font"
+
+[font.normal]
+family = "Jetbrains Mono Nerd Font"
+
+[mouse]
+hide_when_typing = true
+
+[window]
+blur = true
+decorations = "full"
+dynamic_padding = false
+opacity = 0.82
+startup_mode = "Windowed"
+
+[window.padding]
+x = 13
+y = 13
+
+[general]
+live_config_reload = true
+ipc_socket = true

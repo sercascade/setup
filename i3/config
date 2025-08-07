@@ -1,0 +1,148 @@
+# i3 config (shittily converted from hyprland)
+
+include ~/.config/i3/bar.conf
+
+set $mod Mod4
+set $terminal alacritty 
+set $fileManager nautilus
+set $browser brave
+set $menu rofi -show drun
+set $cursor Breeze_Snow
+
+font pango:JetBrains Mono 10
+
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+q exec shutdown now
+bindsym $mod+Shift+w exec reboot
+bindsym $mod+Shift+e exit
+bindsym $mod+Q kill
+
+# Appearance
+gaps inner 0
+gaps outer 0
+
+# client.<state> <border> <background> <text> <indicator> <child_border>
+client.focused          #dd822f #1e222a #b3c5d6 #b3c5d6 #dd822f
+client.unfocused        #1e222a #1e222a #b3c5d6 #1e222a #1e222a
+client.focused_inactive #dd822f #1e222a #b3c5d6 #1e222a #dd822f
+client.urgent           #ff0000 #1e222a #a2b2c2 #ff0000 #ff0000
+
+for_window [class=".*"] border pixel 2
+new_window pixel 2
+new_float pixel 2
+
+# Window behavior
+focus_follows_mouse yes
+mouse_warping output
+
+# Input
+exec_always --no-startup-id sh -c 'sleep 1 && xsetroot -xcf /usr/share/icons/$cursor/cursors/left_ptr 27'
+exec_always xsetroot -$cursor left_ptr
+exec_always xsetroot -xcf /usr/share/icons/$cursor/cursors/left_ptr 27
+exec_always --no-startup-id export XCURSOR_THEME=$cursor
+exec_always --no-startup-id export XCURSOR_SIZE=27
+exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor #gtk cursor stuff makes it work for gtk 
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 27
+
+# Startup
+exec --no-startup-id ~/.config/polybar/launch.sh
+exec_always xset s off -dpms
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec_always systemctl --user import-environment XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/soft/ 200
+
+# Keybindings
+
+## Basic
+bindsym $mod+Return exec $terminal
+bindsym Mod1+Return exec --no-startup-id $terminal --class floater -e bash
+
+for_window [class="floater"] floating enable, resize set 980 590
+
+bindsym $mod+R exec $menu
+bindsym $mod+N exec $fileManager
+bindsym $mod+X exec $browser
+bindsym $mod+T exec --no-startup-id /usr/bin/tor-browser
+
+bindsym Mod1+1 exec blueberry
+for_window [class="blueberry"] floating enable
+bindsym Mod1+2 exec gnome-calculator
+for_window [class="gnome-calculator"] floating enable
+bindsym Mod1+3 exec pavucontrol
+for_window [class="pavucontrol"] floating enable
+bindsym Mod1+4 exec --no-startup-id maim -s ~/Pictures/Screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym Mod1+5 exec xpickcolour.sh
+
+# Window Movement
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+V floating toggle
+bindsym $mod+B split toggle
+bindsym $mod+G layout toggle split
+
+bindsym $mod+a move position mouse
+bindsym $mod+z mode "resize"
+mode "resize" {
+    bindsym h resize shrink width 5 px or 10 ppt
+    bindsym j resize grow height 5 px or 10 ppt
+    bindsym k resize shrink height 5 px or 10 ppt
+    bindsym l resize grow width 5 px or 10 ppt
+
+    # Exit resize mode
+    bindsym $mod+z mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+## Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
+
+## scroll workspaces
+bindsym $mod+button4 workspace next
+bindsym $mod+button5 workspace prev
+
+# misc
+focus_follows_mouse yes
+workspace_auto_back_and_forth yes

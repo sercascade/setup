@@ -1,0 +1,48 @@
+#!/usr/bin/python3
+
+import os
+import sys
+
+
+def read_all_files_in_dir(directory: str) -> list[str]:
+    contents = []
+    for root, _, files in os.walk(directory):
+        for filename in files:
+            print(os.path.join(root, filename))
+            filepath = os.path.join(root, filename)
+            try:
+                if os.path.exists(filepath):
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        contents.append(f.read())
+            except (UnicodeDecodeError, PermissionError, IsADirectoryError, FileNotFoundError):
+                continue
+    return contents
+
+
+if len(sys.argv) <= 1:
+    print("usage :\ncounter path/to/some/place/on/computer")
+    sys.exit(0)
+
+all_file_contents = read_all_files_in_dir(sys.argv[1])
+
+line_count = 0
+char_count = 0
+total_size = 0
+
+for current_file in all_file_contents:
+
+    line_count += len(current_file.split("\n"))
+    char_count += len(current_file)
+    total_size += len(current_file.encode("utf-8"))
+total_size *= 0.0009765625 # to get size in kb
+total_size = round(total_size, 2)
+
+print(f"""
+
+               line count : {line_count}
+          character count : {char_count}
+total readable files size : {total_size}kb
+      
+      """)
+
+

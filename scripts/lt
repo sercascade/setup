@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+if len(sys.argv) < 2:
+    directory_name = os.path.basename(os.getcwd())
+    directory = '.'
+else:
+    directory = sys.argv[1]
+    directory_name = sys.argv[1]
+    if directory == '..':
+        directory_name = os.path.basename(os.path.dirname(os.getcwd()))
+
+
+if not os.path.isdir(directory):
+    print(f"error: directory '{directory}' does not exist.")
+    sys.exit(1)
+
+def tree_structure(dir, prefix):
+    try:
+        files = sorted(os.listdir(dir))
+        if not files:
+            return
+        last_file = files[-1]
+        white_space = ' ' * (len(directory_name) + 1)
+
+        if '/' == directory[-1] or '\\' == directory[-1]:
+            white_space = white_space[0 : -1]
+
+        for file in files:
+            file_path = os.path.join(dir, file)
+            if os.path.isdir(file_path):
+                if file == last_file:
+                    print(f"{white_space}{prefix}└── {file}")
+                    tree_structure(file_path, prefix + "    ")
+                else:
+                    print(f"{white_space}{prefix}├── {file}")
+                    tree_structure(file_path, prefix + "│   ")
+            else:
+                if file == last_file:
+                    print(f"{white_space}{prefix}└── {file}")
+                else:
+                    print(f"{white_space}{prefix}├── {file}")
+    except PermissionError:
+        pass
+
+print(directory_name.rstrip(os.sep), "┐")
+tree_structure(directory, "")
+print()

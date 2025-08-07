@@ -1,0 +1,122 @@
+# i3 config (converted from Hyprland)
+
+set $mod Mod4
+set $terminal alacritty 
+set $fileManager nemo
+set $browser firefox
+set $menu rofi -show drun
+set $cursor Breeze_Snow
+
+font pango:JetBrains Mono 10
+
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+p exec --no-startup-id picom --backend xrender
+
+# Appearance
+gaps inner 14
+gaps outer 14
+for_window [class=".*"] border pixel 3
+client.focused          #ff6600 #282828 #ffffff #ff6600 #282828
+client.unfocused        #4c4c4c #1c1c1c #888888 #222222 #1c1c1c
+client.focused_inactive #888888 #222222 #ffffff #888888 #222222
+client.urgent           #ff0000 #282828 #ffffff #ff0000 #282828
+
+new_window pixel 2
+new_float pixel 2
+
+# Window behavior
+focus_follows_mouse yes
+mouse_warping output
+
+# Input
+exec_always xsetroot -xcf /usr/share/icons/$cursor/cursors/left_ptr 27
+
+# Startup
+exec_always --no-startup-id picom --backend xrender
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec_always systemctl --user import-environment XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec_always cycle_wallpaper.py /home/cascade/Wallpapers/liminal 700
+
+# Keybindings
+
+## Basic
+bindsym $mod+Return exec $terminal
+#bindsym Mod1+Return exec --no-startup-id $terminal --class floater -e bash
+
+for_window [class="floater"] floating enable, resize set 980 590
+
+bindsym $mod+R exec $menu
+#bindsym $mod+Escape exec wlogout -b 5
+bindsym $mod+Escape exit
+#bindsym $mod+Escape+Shift exec shutdown now
+bindsym $mod+Q kill
+
+bindsym $mod+N exec $fileManager
+bindsym $mod+X exec $browser
+
+bindsym Mod1+1 exec blueberry
+for_window [class="blueberry"] floating enable
+bindsym Mod1+2 exec gnome-calculator
+for_window [class="gnome-calculator"] floating enable
+bindsym Mod1+3 exec pavucontrol
+for_window [class="pavucontrol"] floating enable
+#mod 4 = screenshot
+#mod 5 = colours picker
+
+# Window Movement
+bindsym $mod+h focus left
+bindsym $mod+l focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+bindsym $mod+V floating toggle
+bindsym $mod+B split toggle
+bindsym $mod+B layout toggle split
+
+bindsym $mod+a move position mouse
+bindsym $mod+z mode "resize"
+
+## Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+## Scroll workspaces
+bindsym $mod+button4 workspace next
+bindsym $mod+button5 workspace prev
+
+# Misc
+focus_follows_mouse yes
+workspace_auto_back_and_forth yes
+
+# Disable i3 default modifier bindings (if any conflicts)
+# bindsym Mod1+Shift+Q exec i3-msg exit
