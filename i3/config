@@ -18,7 +18,7 @@ bindsym $mod+Shift+e exit
 bindsym $mod+Q kill
 
 # Appearance
-gaps inner 0
+gaps inner 10
 gaps outer 0
 
 # client.<state> <border> <background> <text> <indicator> <child_border>

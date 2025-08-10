@@ -10,13 +10,13 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator
+sudo pacman -S --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev openssh
 
 git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git
 
 sudo timedatectl set-timezone America/Chicago
 
@@ -25,13 +25,11 @@ pip install --break-system-packages simple-term-menu pyright pynvim inotify-simp
 sudo systemctl enable sddm
 sudo systemctl enable NetworkManager
 sudo systemctl enable bluetooth
+sudo systemctl enable sshd
 
 rm ~/.bashrc
 cp .bashrc ~/
 source ~/.bashrc
-
-rm -rf ~/.config/BraveSoftware
-cp -rf BraveSoftware ~/.config
 
 rm -rf ~/.config/i3
 cp -rf i3/ ~/.config/ 
@@ -69,9 +67,13 @@ done
 
 mkdir ~/.themes/
 cp -rf colloid* ~/.themes/
+
+mkdir ~/.icons/ 
+cp -rf Numix ~/.icons/
+
 gsettings set org.gnome.desktop.interface gtk-theme "colloid"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-gsettings set org.gnome.desktop.interface font-name "JetBrainsMono Semibold 8"
+gsettings set org.gnome.desktop.interface font-name "JetBrains Mono NL SemiBold"
 gsettings set org.gnome.desktop.interface gtk-theme 'colloid'
 gsettings set org.gnome.desktop.interface icon-theme 'Numix'
 gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
@@ -81,9 +83,7 @@ echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-3.0/settings.ini
 mkdir -p ~/.config/gtk-4.0
 echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-4.0/settings.ini
 echo 'gtk-theme-name="colloid"' > ~/.gtkrc-2.0
-
-mkdir ~/.icons/ 
-cp -rf Numix ~/.icons/
+echo 'export GTK_THEME=colloid' >> ~/.xprofile
 
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
 sudo mkdir -p /boot/grub
@@ -100,14 +100,6 @@ sudo cp -rf sddm-sugar-candy-master/ /usr/share/sddm/themes/
 sudo rm -rf /etc/sddm.conf
 sudo cp sddm.conf /etc/
 
-mkdir -p ~/.config/gtk-3.0
-echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-3.0/settings.ini
-mkdir -p ~/.config/gtk-4.0
-echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-4.0/settings.ini
-echo 'gtk-theme-name="colloid"' > ~/.gtkrc-2.0
-echo 'export GTK_THEME=colloid' >> ~/.xprofile
-echo "done! rebooting now..."
-
 sudo mkdir -p /etc/X11/xorg.conf.d && sudo tee /etc/X11/xorg.conf.d/90-touchpad.conf > /dev/null <<EOF
 Section "InputClass"
     Identifier "touchpad"
@@ -119,4 +111,23 @@ Section "InputClass"
 EndSection
 EOF
 
+read -p "do you want to copy extra files using ssh? (y/n): " answer
+if [[ "$answer" == "y" || "$answer" == "yes" ]]; then
+  read -p "enter the username for the remote machine: " username
+  read -p "enter the ip address of the remote machine: " ip
+  read -p "enter the full path to the folder (do not use ~): " folder
+
+  echo "this will copy the contents of $folder to your home directory. do you want to proceed? (y/n): "
+  read proceed
+  if [[ "$proceed" == "y" || "$proceed" == "yes" ]]; then
+    scp -r "$username@$ip:$folder" ~/
+  else
+    echo "skipping file copy."
+  fi
+else
+  echo "skipping file copy."
+fi
+
+# ============================ #
+echo "done! rebooting now..."
 reboot

@@ -1,7 +1,20 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import os
 import sys
+
+depth_limit = None
+
+if '-d' in sys.argv:
+    d_index = sys.argv.index('-d')
+    try:
+        depth_limit = int(sys.argv[d_index + 1])
+        # Remove these two args so directory arg is correct if present
+        sys.argv.pop(d_index)  
+        sys.argv.pop(d_index)
+    except (IndexError, ValueError):
+        print("error: invalid depth value after -d")
+        sys.exit(1)
 
 if len(sys.argv) < 2:
     directory_name = os.path.basename(os.getcwd())
@@ -17,7 +30,9 @@ if not os.path.isdir(directory):
     print(f"error: directory '{directory}' does not exist.")
     sys.exit(1)
 
-def tree_structure(dir, prefix):
+def tree_structure(dir, prefix, current_depth=1):
+    if depth_limit is not None and current_depth > depth_limit:
+        return
     try:
         files = sorted(os.listdir(dir))
         if not files:
@@ -33,10 +48,10 @@ def tree_structure(dir, prefix):
             if os.path.isdir(file_path):
                 if file == last_file:
                     print(f"{white_space}{prefix}└── {file}")
-                    tree_structure(file_path, prefix + "    ")
+                    tree_structure(file_path, prefix + "    ", current_depth + 1)
                 else:
                     print(f"{white_space}{prefix}├── {file}")
-                    tree_structure(file_path, prefix + "│   ")
+                    tree_structure(file_path, prefix + "│   ", current_depth + 1)
             else:
                 if file == last_file:
                     print(f"{white_space}{prefix}└── {file}")

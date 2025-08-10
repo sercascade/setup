@@ -35,7 +35,7 @@ blinking = "On"
 shape = "Underline"
 
 [font]
-size = 7.0
+size = 6.0
 
 [font.bold]
 family = "Jetbrains Mono Nerd Font"
