@@ -163,4 +163,5 @@ fi
 
 # ============================ #
 echo "done! rebooting now..."
+cp -rf i3/ ~/.config/ # just incase
 reboot
