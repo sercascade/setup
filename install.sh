@@ -37,7 +37,7 @@ rm -rf ~/.config/i3
 cp -rf i3/ ~/.config/ 
 
 rm -rf ~/.config/ranger/
-mv -rf ranger/ ~/.config/
+cp -rf ranger/ ~/.config/
 
 rm -rf ~/.config/picom/
 cp -rf picom ~/.config/
