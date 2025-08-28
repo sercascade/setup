@@ -1,16 +1,19 @@
 #!/bin/bash
 
+# works best if you start with a plain install of arch no window/login manager just plain shell 
+
 if [[ ! -f "isdj09dj20s029jd0983hj09de83hj4.dontdelete" ]]; then
   echo -e "cd into the setup directory\nexiting..."
   exit 1
 fi
 
 sudo rm -rf /etc/pacman.conf
+sudo cp /etc/pacman.conf /etc/pacman.conf.bak
 sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger
+sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez nwg-look thunar feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita vlc vlc-plugin-ffmpeg maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger
 
 # kdenlive
 
@@ -18,7 +21,7 @@ git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git python-terminaltexteffect picom-ibhagwan-git
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git picom-ftlabs-git
 
 sudo timedatectl set-timezone America/Chicago
 
@@ -99,6 +102,8 @@ mkdir -p ~/.config/gtk-4.0
 echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-4.0/settings.ini
 echo 'gtk-theme-name="ZorinGreen-Dark"' > ~/.gtkrc-2.0
 echo 'export GTK_THEME=ZorinGreen-Dark' >> ~/.xprofile
+echo -e "[Settings]\ngtk-icon-theme-name=Tela" > ~/.config/gtk-3.0/settings.ini
+echo -e "[Settings]\ngtk-icon-theme-name=Tela" > ~/.config/gtk-4.0/settings.ini
 
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
 sudo mkdir -p /boot/grub
