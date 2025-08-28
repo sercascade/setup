@@ -21,7 +21,8 @@ git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git picom-ftlabs-git
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git
+#  tor-browser-bin
 
 sudo timedatectl set-timezone America/Chicago
 
@@ -31,6 +32,8 @@ sudo systemctl enable ly
 sudo systemctl enable NetworkManager
 sudo systemctl enable bluetooth
 sudo systemctl enable sshd
+
+mkdir -p ~/Pictures/Screenshots
 
 rm ~/.bashrc
 cp .bashrc ~/
