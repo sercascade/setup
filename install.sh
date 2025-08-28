@@ -13,7 +13,7 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez nwg-look thunar feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita vlc vlc-plugin-ffmpeg maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger
+sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez nwg-look thunar feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita vlc vlc-plugin-ffmpeg maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger lxappearance
 
 # kdenlive
 
@@ -21,7 +21,7 @@ git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git tela-circle-icon-theme-manjaro
 #  tor-browser-bin
 
 sudo timedatectl set-timezone America/Chicago
@@ -96,7 +96,7 @@ gsettings set org.gnome.desktop.interface gtk-theme "ZorinGreen-Dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface font-name "JetBrains Mono NL SemiBold"
 gsettings set org.gnome.desktop.interface gtk-theme 'ZorinGreen-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Tela'
+gsettings set org.gnome.desktop.interface icon-theme 'Tela circle manjaro dark'
 gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 mkdir -p ~/.config/gtk-3.0
@@ -105,8 +105,8 @@ mkdir -p ~/.config/gtk-4.0
 echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-4.0/settings.ini
 echo 'gtk-theme-name="ZorinGreen-Dark"' > ~/.gtkrc-2.0
 echo 'export GTK_THEME=ZorinGreen-Dark' >> ~/.xprofile
-echo -e "[Settings]\ngtk-icon-theme-name=Tela" > ~/.config/gtk-3.0/settings.ini
-echo -e "[Settings]\ngtk-icon-theme-name=Tela" > ~/.config/gtk-4.0/settings.ini
+echo -e "[Settings]\ngtk-icon-theme-name=Tela circle manjaro dark" > ~/.config/gtk-3.0/settings.ini
+echo -e "[Settings]\ngtk-icon-theme-name=Tela circle manjaro dark" > ~/.config/gtk-4.0/settings.ini
 
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
 sudo mkdir -p /boot/grub
