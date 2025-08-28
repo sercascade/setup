@@ -38,6 +38,8 @@ new_float pixel 2
 # ── window behavior
 focus_follows_mouse yes
 mouse_warping output
+exec_always xrandr --output HDMI --rotate left --mode 1920x1080 --pos 1920x1080
+exec_always xrandr --output eDP1 --mode 1920x1080 --pos 0x0
 
 # ── startup
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
