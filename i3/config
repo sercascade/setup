@@ -1,81 +1,80 @@
-# i3 config (shittily converted from hyprland)
+# ──────────────────────────────────────────────────────────────
+# i3 config (cleaned up from Hyprland conversion)
+# ──────────────────────────────────────────────────────────────
 
+# Load extra configs
 include ~/.config/i3/bar.conf
 
+# ── Variables
 set $mod Mod4
-set $terminal alacritty 
-set $fileManager nautilus
+set $terminal alacritty
+set $termexec $terminal -e
 set $browser brave
 set $menu rofi -show drun
 set $cursor Breeze_Snow
-
+set $guiFileManager thunar
 font pango:JetBrains Mono 10
 
+# ── keybindings: power
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+q exec shutdown now
 bindsym $mod+Shift+w exec reboot
 bindsym $mod+Shift+e exit
 bindsym $mod+Q kill
 
-# Appearance
-gaps inner 10
+# ── appearance
+gaps inner 0
 gaps outer 0
 
-# client.<state> <border> <background> <text> <indicator> <child_border>
-client.focused          #dd822f #1e222a #b3c5d6 #b3c5d6 #dd822f
-client.unfocused        #1e222a #1e222a #b3c5d6 #1e222a #1e222a
-client.focused_inactive #dd822f #1e222a #b3c5d6 #1e222a #dd822f
-client.urgent           #ff0000 #1e222a #a2b2c2 #ff0000 #ff0000
+client.focused          #ff0000 #00ff00 #0000ff #ddfdff #72967f 
+client.unfocused        #ff0000 #00ff00 #0000ff #ddfdff #394b3f
+client.focused_inactive #ff0000 #00ff00 #0000ff #394b3f #394b3f
+client.urgent           #ff0000 #00ff00 #0000ff #ffff00 #ff00ff
 
 for_window [class=".*"] border pixel 2
 new_window pixel 2
 new_float pixel 2
 
-# Window behavior
+# ── window behavior
 focus_follows_mouse yes
 mouse_warping output
 
-# Input
-exec_always --no-startup-id sh -c 'sleep 1 && xsetroot -xcf /usr/share/icons/$cursor/cursors/left_ptr 27'
-exec_always xsetroot -$cursor left_ptr
-exec_always xsetroot -xcf /usr/share/icons/$cursor/cursors/left_ptr 27
-exec_always --no-startup-id export XCURSOR_THEME=$cursor
-exec_always --no-startup-id export XCURSOR_SIZE=27
-exec_always --no-startup-id xsetroot -cursor_name left_ptr
-exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor #gtk cursor stuff makes it work for gtk 
+# ── startup
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 27
-
-# Startup
 exec --no-startup-id ~/.config/polybar/launch.sh
 exec_always xset s off -dpms
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec_always systemctl --user import-environment XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
-exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/soft/ 200
+exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/greenpink 293
+exec_always --no-startup-id xsettingsd
+exec_always pkill steam
+exec_always --no-startup-id unclutter -idle 3
+exec_always $terminal
 
-# Keybindings
-
-## Basic
+# ── Keybindings: apps
 bindsym $mod+Return exec $terminal
 bindsym Mod1+Return exec --no-startup-id $terminal --class floater -e bash
-
 for_window [class="floater"] floating enable, resize set 980 590
 
+bindsym $mod+N exec alacritty -e ranger
+bindsym $mod+P exec $guifileManager
 bindsym $mod+R exec $menu
-bindsym $mod+N exec $fileManager
 bindsym $mod+X exec $browser
 bindsym $mod+T exec --no-startup-id /usr/bin/tor-browser
 
-bindsym Mod1+1 exec blueberry
+bindsym Mod1+q exec blueberry
 for_window [class="blueberry"] floating enable
-bindsym Mod1+2 exec gnome-calculator
+bindsym Mod1+w exec gnome-calculator
 for_window [class="gnome-calculator"] floating enable
-bindsym Mod1+3 exec pavucontrol
+bindsym Mod1+e exec pavucontrol
 for_window [class="pavucontrol"] floating enable
-bindsym Mod1+4 exec --no-startup-id maim -s ~/Pictures/Screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
-bindsym Mod1+5 exec xpickcolour.sh
+bindsym Mod1+r exec maim -s ~/Pictures/Screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
+bindsym Mod1+t exec xpickcolour.sh
+bindsym Mod1+a exec alacritty -e fuzzy_file_finder
 
-# Window Movement
+# ── Window movement
 bindsym $mod+h focus left
 bindsym $mod+l focus right
 bindsym $mod+j focus down
@@ -94,18 +93,15 @@ bindsym $mod+a move position mouse
 bindsym $mod+z mode "resize"
 mode "resize" {
     bindsym h resize shrink width 5 px or 10 ppt
-    bindsym j resize grow height 5 px or 10 ppt
-    bindsym k resize shrink height 5 px or 10 ppt
+    bindsym k resize grow height 5 px or 10 ppt
+    bindsym j resize shrink height 5 px or 10 ppt
     bindsym l resize grow width 5 px or 10 ppt
-
-    # Exit resize mode
     bindsym $mod+z mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-
-## Workspaces
+# ── workspaces
 set $ws1 "1"
 set $ws2 "2"
 set $ws3 "3"
@@ -139,10 +135,11 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10; workspace $ws10
 
-## scroll workspaces
+# scroll through workspaces
 bindsym $mod+button4 workspace next
 bindsym $mod+button5 workspace prev
 
 # misc
 focus_follows_mouse yes
 workspace_auto_back_and_forth yes
+

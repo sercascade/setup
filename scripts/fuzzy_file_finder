@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+dir="$HOME"
+
+while true; do
+    selection=$(find "$dir" -maxdepth 1 ! -path "$dir" 2>/dev/null \
+        | sed 's|^./||' \
+        | fzf --bind 'tab:accept' --height 40% --reverse)
+
+    [ -z "$selection" ] && break
+
+    if [ -d "$selection" ]; then
+        dir="$selection"
+        continue
+    fi
+
+    mime=$(file --mime-type -b "$selection")
+
+    case "$mime" in
+        text/*|application/x-shellscript)
+            ${EDITOR:-nano} "$selection"
+            ;;
+        video/*)
+            vlc "$selection" 
+            exit 0
+            ;;
+        image/*)
+            eog "$selection" 
+            ;;
+        *)
+            xdg-open "$selection" 
+            ;;
+    esac
+
+    # After opening, wait for user to press enter to continue browsing
+    read -rp "Press Enter to continue browsing or Ctrl+C to exit..."
+done

@@ -10,19 +10,21 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget sddm qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev openssh
+sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim fastfetch btop rofi bluez nwg-look thunar feh xclip picom mesa xf86-video-intel mesa-demos eog picom pavucontrol blueberry xf86-input-wacom krita vlc vlc-plugin-ffmpeg xorg-xinput maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger
+
+# kdenlive
 
 git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet tor-browser-bin crispy-doom-git python-terminaltexteffect picom-ibhagwan-git
 
 sudo timedatectl set-timezone America/Chicago
 
 pip install --break-system-packages simple-term-menu pyright pynvim inotify-simple
 
-sudo systemctl enable sddm
+sudo systemctl enable ly
 sudo systemctl enable NetworkManager
 sudo systemctl enable bluetooth
 sudo systemctl enable sshd
@@ -34,6 +36,9 @@ source ~/.bashrc
 rm -rf ~/.config/i3
 cp -rf i3/ ~/.config/ 
 
+rm -rf ~/.config/ranger/
+mv -rf ranger/ ~/.config/
+
 rm -rf ~/.config/picom/
 cp -rf picom ~/.config/
 
@@ -43,11 +48,19 @@ cp -rf alacritty/ ~/.config
 chmod +x scripts/*
 sudo cp scripts/* /bin
 
+mkdir ~/scripts
+cp scripts/* ~/Scripts/
+
+sudo cp resolv.conf /etc/
+
 rm -rf ~/.config/btop/
 cp -rf btop/ ~/.config
 
 rm -rf ~/.config/polybar/
 cp -rf polybar/ ~/.config/
+
+rm ~/.xprofile
+cp .xprofile ~/
 
 rm -rf ~/.config/nvim
 rm -rf ~/.local/share/nvim
@@ -66,24 +79,26 @@ for type in image/jpeg image/png image/gif image/bmp image/webp image/tiff; do
 done
 
 mkdir ~/.themes/
-cp -rf colloid* ~/.themes/
+cp -rf ZorinGreen-Dark* ~/.themes/
 
 mkdir ~/.icons/ 
-cp -rf Numix ~/.icons/
+cp -rf Tela ~/.icons/
 
-gsettings set org.gnome.desktop.interface gtk-theme "colloid"
+set_gtk_theme.sh ZorinGreen-Dark
+
+gsettings set org.gnome.desktop.interface gtk-theme "ZorinGreen-Dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings set org.gnome.desktop.interface font-name "JetBrains Mono NL SemiBold"
-gsettings set org.gnome.desktop.interface gtk-theme 'colloid'
-gsettings set org.gnome.desktop.interface icon-theme 'Numix'
+gsettings set org.gnome.desktop.interface gtk-theme 'ZorinGreen-Dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Tela'
 gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 mkdir -p ~/.config/gtk-3.0
-echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-3.0/settings.ini
+echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-3.0/settings.ini
 mkdir -p ~/.config/gtk-4.0
-echo -e "[Settings]\ngtk-theme-name=colloid" > ~/.config/gtk-4.0/settings.ini
-echo 'gtk-theme-name="colloid"' > ~/.gtkrc-2.0
-echo 'export GTK_THEME=colloid' >> ~/.xprofile
+echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-4.0/settings.ini
+echo 'gtk-theme-name="ZorinGreen-Dark"' > ~/.gtkrc-2.0
+echo 'export GTK_THEME=ZorinGreen-Dark' >> ~/.xprofile
 
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
 sudo mkdir -p /boot/grub
@@ -94,11 +109,8 @@ cp -rf rofi/ ~/.config/
 
 cp -rf Wallpaper/ ~/
 
-sudo rm -rf /usr/share/sddm/themes/sddm-sugar-candy-master/
-sudo cp -rf sddm-sugar-candy-master/ /usr/share/sddm/themes/
-
-sudo rm -rf /etc/sddm.conf
-sudo cp sddm.conf /etc/
+sudo rm /etc/ly/config.ini
+sudo cp ly-config.ini /etc/ly/config.ini
 
 sudo mkdir -p /etc/X11/xorg.conf.d && sudo tee /etc/X11/xorg.conf.d/90-touchpad.conf > /dev/null <<EOF
 Section "InputClass"
@@ -120,13 +132,26 @@ if [[ "$answer" == "y" || "$answer" == "yes" ]]; then
   echo "this will copy the contents of $folder to your home directory. do you want to proceed? (y/n): "
   read proceed
   if [[ "$proceed" == "y" || "$proceed" == "yes" ]]; then
-    scp -r "$username@$ip:$folder" ~/
+    scp -r "$username@$ip:$folder" ~/.config/
   else
     echo "skipping file copy."
   fi
 else
   echo "skipping file copy."
 fi
+
+if sudo grep -q '^HandleLidSwitch=' /etc/systemd/logind.conf; then
+  sudo sed -i 's/^#*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
+else
+  echo 'HandleLidSwitch=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
+fi
+
+if sudo grep -q '^HandleLidSwitchDocked=' /etc/systemd/logind.conf; then
+  sudo sed -i 's/^#*HandleLidSwitchDocked=.*/HandleLidSwitchDocked=ignore/' /etc/systemd/logind.conf
+else
+  echo 'HandleLidSwitchDocked=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
+fi
+
 
 # ============================ #
 echo "done! rebooting now..."

@@ -1,0 +1,20 @@
+* {
+  bg0     : #001010;
+  bg1     : #001010;
+  bg2     : #001010;
+  bg3     : #3E8355;
+  fg0     : #ddfdff;
+  fg1     : #ddfdff;
+  fg2     : #ddfdff;
+
+  red     : #d393d2;
+  green   : #3E8355;
+  yellow  : #3dbf94;
+  blue    : #a4d7b6;
+  magenta : #53986E;
+  cyan    : #b9e5cc;
+  
+  accent  : @green;
+  urgent  : @yellow;
+}
+

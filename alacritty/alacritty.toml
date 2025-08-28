@@ -1,30 +1,30 @@
 [colors.primary]
-background = "#0c1219"
-foreground = "#aaacc1"
+background = "#001010"
+foreground = "#ddfdff"
 
 [colors.cursor]
-cursor = "#aaacc1"
+cursor = "#a4d7b6"
 text = "CellBackground"
 
 [colors.normal]
-black   = "#1e222a" # color0
-red     = "#963C46" # color1
-green   = "#A45C53" # color2
-yellow  = "#D06B4F" # color3
-blue    = "#F08C30" # color4
-magenta = "#E29858" # color5
-cyan    = "#D1B066" # color6
-white   = "#aaacc1" # color7
+black   = "#276759" # color0
+red     = "#d393d2" # color1
+green   = "#3E8355" # color2
+yellow  = "#318D73" # color3
+blue    = "#b372ad" # color4
+magenta = "#53986E" # color5
+cyan    = "#a4d7b6" # color6
+white   = "#ddfdff" # color7
 
 [colors.bright]
-black   = "#1e222a" # color8
-red     = "#963C46" # color9
-green   = "#A45C53" # color10
-yellow  = "#D06B4F" # color11
-blue    = "#F08C30" # color12
-magenta = "#E29858" # color13
-cyan    = "#D1B066" # color14
-white   = "#aaacc1" # color15
+black   = "#357f70" # color8
+red     = "#e2a3e0" # color9
+green   = "#4ea165" # color10
+yellow  = "#3dbf94" # color11
+blue    = "#c48abf" # color12
+magenta = "#65ad80" # color13
+cyan    = "#b9e5cc" # color14
+white   = "#ffffff" # color15
 
 [cursor]
 blink_interval = 270
@@ -56,7 +56,7 @@ hide_when_typing = true
 blur = true
 decorations = "full"
 dynamic_padding = false
-opacity = 0.82
+opacity = 0.7
 startup_mode = "Windowed"
 
 [window.padding]

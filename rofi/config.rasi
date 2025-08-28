@@ -10,7 +10,7 @@ configuration {
     display-window: "Windows:";
 }
 
-@theme "nordorange"
+@theme "colors"
 
 * {
     font: "Iosevka Nerd Font 12";

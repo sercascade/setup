@@ -1,0 +1,10 @@
+export XCURSOR_THEME="Breeze_Snow"
+export GTK_THEME=Windows95
+export XCURSOR_SIZE=27
+
+export QT_QPA_PLATFORMTHEME=gtk3
+export XDG_CURRENT_DESKTOP=i3
+export XDG_SESSION_TYPE=x11
+
+# PATH (prepend local bin if needed)
+export PATH="$HOME/.local/bin:$PATH"

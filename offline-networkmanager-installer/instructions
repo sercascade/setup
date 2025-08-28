@@ -1,0 +1,8 @@
+# this is just a failsafe if you forget to install a way to set up internet,
+# i dont have this problem cus i just clone the repo !! 
+#
+# use this command
+#
+# sudo pacman -U <file>
+# 
+# be more careful next time !!
