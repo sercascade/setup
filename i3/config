@@ -38,7 +38,7 @@ new_float pixel 2
 # ── window behavior
 focus_follows_mouse yes
 mouse_warping output
-exec_always xrandr --output HDMI1 --rotate left --mode 1920x1080 --pos 1920x1080
+exec_always xrandr --output HDMI1 --rotate left --mode 1920x1080 --pos 1920x0
 exec_always xrandr --output eDP1 --mode 1920x1080 --pos 0x0
 
 # ── startup
@@ -53,6 +53,7 @@ exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/greenpink 293
 exec_always --no-startup-id xsettingsd
 exec_always pkill steam
 exec_always --no-startup-id unclutter -idle 3
+exec_always --no-startup-id eval $(gnome-keyring-daemon --start)
 exec_always $terminal
 
 # ── Keybindings: apps
