@@ -21,7 +21,7 @@ git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git tela-circle-icon-theme-manjaro
+paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git tela-circle-icon-theme-manjaro jellyfin-media-player
 #  tor-browser-bin
 
 sudo timedatectl set-timezone America/Chicago
