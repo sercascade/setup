@@ -7,7 +7,7 @@ include ~/.config/i3/bar.conf
 
 # ── Variables
 set $mod Mod4
-set $terminal alacritty
+set $terminal WINIT_X11_SCALE_FACTOR=2 alacritty
 set $termexec $terminal -e
 set $browser brave
 set $menu rofi -show drun
@@ -65,7 +65,8 @@ bindsym $mod+N exec alacritty -e ranger
 bindsym $mod+P exec $guifileManager
 bindsym $mod+R exec $menu
 bindsym $mod+X exec $browser
-bindsym $mod+T exec --no-startup-id /usr/bin/tor-browser
+bindsym $mod+O exec --no-startup-id /usr/bin/tor-browser
+bindsym $mod+T exec jellyfinmediaplayer
 
 bindsym Mod1+q exec blueberry
 for_window [class="blueberry"] floating enable
