@@ -54,6 +54,7 @@ exec_always --no-startup-id xsettingsd
 exec_always pkill steam
 exec_always --no-startup-id unclutter -idle 3
 exec_always --no-startup-id eval $(gnome-keyring-daemon --start)
+
 exec_always $terminal
 
 # ── Keybindings: apps
