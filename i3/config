@@ -1,7 +1,7 @@
 # ── Variables
 set $mod Mod4
 set $terminal "WINIT_X11_SCALE_FACTOR=2 alacritty"
-set $termexec $terminal -e
+set $termexec "WINIT_X11_SCALE_FACTOR=2 alacritty -e"
 set $browser brave
 set $menu rofi -show drun
 set $cursor Breeze_Snow
@@ -35,7 +35,7 @@ focus_follows_mouse yes
 mouse_warping output
 exec_always xrandr --output HDMI1 --rotate left --mode 1920x1080 --pos 0x0
 exec_always xrandr --output eDP1  --mode 1920x1080 --pos 1080x840
-
+exec_always --no-startup-id sh -c "picom --backend glx -b --config ~/.config/picom/picom.conf"
 
 # ── startup
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
@@ -54,7 +54,6 @@ exec_always $terminal
 
 # ── Keybindings: apps
 bindsym $mod+Return exec $terminal
-bindsym Mod1+Return exec --no-startup-id $terminal --class floater -e bash
 for_window [class="floater"] floating enable, resize set 980 590
 
 bindsym $mod+N exec $fileManager
