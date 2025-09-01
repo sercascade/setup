@@ -1,18 +1,13 @@
-# ──────────────────────────────────────────────────────────────
-# i3 config (cleaned up from Hyprland conversion)
-# ──────────────────────────────────────────────────────────────
-
-# Load extra configs
-include ~/.config/i3/bar.conf
-
 # ── Variables
 set $mod Mod4
-set $terminal WINIT_X11_SCALE_FACTOR=2 alacritty
+set $terminal "WINIT_X11_SCALE_FACTOR=2 alacritty"
 set $termexec $terminal -e
 set $browser brave
 set $menu rofi -show drun
 set $cursor Breeze_Snow
+set $fileManager "WINIT_X11_SCALE_FACTOR=2 alacritty -e ranger" 
 set $guiFileManager thunar
+
 font pango:JetBrains Mono 10
 
 # ── keybindings: power
@@ -41,9 +36,10 @@ mouse_warping output
 exec_always xrandr --output HDMI1 --rotate left --mode 1920x1080 --pos 0x0
 exec_always xrandr --output eDP1  --mode 1920x1080 --pos 1080x840
 
+
 # ── startup
 exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
-exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 27
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 20
 exec --no-startup-id ~/.config/polybar/launch.sh
 exec_always xset s off -dpms
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
@@ -54,7 +50,6 @@ exec_always --no-startup-id xsettingsd
 exec_always pkill steam
 exec_always --no-startup-id unclutter -idle 3
 exec_always --no-startup-id eval $(gnome-keyring-daemon --start)
-
 exec_always $terminal
 
 # ── Keybindings: apps
@@ -62,11 +57,11 @@ bindsym $mod+Return exec $terminal
 bindsym Mod1+Return exec --no-startup-id $terminal --class floater -e bash
 for_window [class="floater"] floating enable, resize set 980 590
 
-bindsym $mod+N exec alacritty -e ranger
+bindsym $mod+N exec $fileManager
 bindsym $mod+P exec $guifileManager
 bindsym $mod+R exec $menu
 bindsym $mod+X exec $browser
-bindsym $mod+O exec --no-startup-id /usr/bin/tor-browser
+bindsym $mod+o exec --no-startup-id /usr/bin/tor-browser
 bindsym $mod+T exec jellyfinmediaplayer
 
 bindsym Mod1+q exec blueberry
