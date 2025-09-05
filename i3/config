@@ -21,9 +21,9 @@ bindsym $mod+Q kill
 gaps inner 0
 gaps outer 0
 
-client.focused          #ff0000 #00ff00 #0000ff #ddfdff #72967f 
-client.unfocused        #ff0000 #00ff00 #0000ff #ddfdff #394b3f
-client.focused_inactive #ff0000 #00ff00 #0000ff #394b3f #394b3f
+client.focused          #ff0000 #00ff00 #0000ff #f3d8aa #d25e2c
+client.unfocused        #ff0000 #00ff00 #0000ff #f3d8aa #100706
+client.focused_inactive #ff0000 #00ff00 #0000ff #af5f45 #af5f45
 client.urgent           #ff0000 #00ff00 #0000ff #ffff00 #ff00ff
 
 for_window [class=".*"] border pixel 2

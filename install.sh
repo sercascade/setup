@@ -48,7 +48,7 @@ pip install --break-system-packages simple-term-menu pyright pynvim inotify-simp
 sudo systemctl enable ly
 sudo systemctl enable NetworkManager
 sudo systemctl enable bluetooth
-sudo systemctl enable sshd
+#sudo systemctl enable sshd
 
 mkdir -p ~/Pictures/Screenshots
 
@@ -101,30 +101,6 @@ for type in image/jpeg image/png image/gif image/bmp image/webp image/tiff; do
   xdg-mime default org.gnome.eog.desktop $type
 done
 
-mkdir ~/.themes/
-cp -rf ZorinGreen-Dark* ~/.themes/
-
-mkdir ~/.icons/ 
-cp -rf Tela ~/.icons/
-
-set_gtk_theme.sh ZorinGreen-Dark
-
-gsettings set org.gnome.desktop.interface gtk-theme "ZorinGreen-Dark"
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-gsettings set org.gnome.desktop.interface font-name "JetBrains Mono NL SemiBold"
-gsettings set org.gnome.desktop.interface gtk-theme 'ZorinGreen-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Tela circle manjaro dark'
-gsettings set org.gnome.desktop.interface cursor-theme 'Breeze_Light'
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-mkdir -p ~/.config/gtk-3.0
-echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-3.0/settings.ini
-mkdir -p ~/.config/gtk-4.0
-echo -e "[Settings]\ngtk-theme-name=ZorinGreen-Dark" > ~/.config/gtk-4.0/settings.ini
-echo 'gtk-theme-name="ZorinGreen-Dark"' > ~/.gtkrc-2.0
-echo 'export GTK_THEME=ZorinGreen-Dark' >> ~/.xprofile
-echo -e "[Settings]\ngtk-icon-theme-name=Tela circle manjaro dark" > ~/.config/gtk-3.0/settings.ini
-echo -e "[Settings]\ngtk-icon-theme-name=Tela circle manjaro dark" > ~/.config/gtk-4.0/settings.ini
-
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
 sudo mkdir -p /boot/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -148,22 +124,22 @@ Section "InputClass"
 EndSection
 EOF
 
-read -p "do you want to copy extra files using ssh? (y/n): " answer
-if [[ "$answer" == "y" || "$answer" == "yes" ]]; then
-  read -p "enter the username for the remote machine: " username
-  read -p "enter the ip address of the remote machine: " ip
-  read -p "enter the full path to the folder (do not use ~): " folder
-
-  echo "this will copy the contents of $folder to your home directory. do you want to proceed? (y/n): "
-  read proceed
-  if [[ "$proceed" == "y" || "$proceed" == "yes" ]]; then
-    scp -r "$username@$ip:$folder" ~/.config/
-  else
-    echo "skipping file copy."
-  fi
-else
-  echo "skipping file copy."
-fi
+#read -p "do you want to copy extra files using ssh? (y/n): " answer
+#if [[ "$answer" == "y" || "$answer" == "yes" ]]; then
+#  read -p "enter the username for the remote machine: " username
+#  read -p "enter the ip address of the remote machine: " ip
+#  read -p "enter the full path to the folder (do not use ~): " folder
+#
+#  echo "this will copy the contents of $folder to your home directory. do you want to proceed? (y/n): "
+#  read proceed
+#  if [[ "$proceed" == "y" || "$proceed" == "yes" ]]; then
+#    scp -r "$username@$ip:$folder" ~/.config/
+#  else
+#    echo "skipping file copy."
+#  fi
+#else
+#  echo "skipping file copy."
+#fi
 
 if sudo grep -q '^HandleLidSwitch=' /etc/systemd/logind.conf; then
   sudo sed -i 's/^#*HandleLidSwitch=.*/HandleLidSwitch=ignore/' /etc/systemd/logind.conf
