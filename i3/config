@@ -45,7 +45,7 @@ exec_always xset s off -dpms
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec_always systemctl --user import-environment XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
-exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/greenpink 293
+exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/ 200
 exec_always --no-startup-id xsettingsd
 exec_always pkill steam
 exec_always --no-startup-id unclutter -idle 3
@@ -72,6 +72,7 @@ for_window [class="pavucontrol"] floating enable
 bindsym Mod1+r exec maim -s ~/Pictures/Screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
 bindsym Mod1+t exec xpickcolour.sh
 bindsym Mod1+a exec alacritty -e fuzzy_file_finder
+bindsym Mod1+s exec lxappearance
 
 # ── Window movement
 bindsym $mod+h focus left

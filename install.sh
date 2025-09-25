@@ -13,7 +13,7 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez nwg-look thunar feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita vlc vlc-plugin-ffmpeg maim polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger lxappearance gtk-update-icon-cache gdk-pixbuf2 gnome-keyring libsecret unclutter
+sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger lxappearance gtk-update-icon-cache gdk-pixbuf2 gnome-keyring libsecret unclutter nautilus dosfstools
 
 # kdenlive
 
@@ -21,7 +21,8 @@ git clone https://aur.archlinux.org/paru-git.git
 cd paru-git
 makepkg -si
 cd ..
-paru -S --noconfirm --needed brave-bin breeze-snow-cursor-theme sparrow-wallet crispy-doom-git picom-ftlabs-git tela-circle-icon-theme-manjaro jellyfin-media-player
+rm -rf paru-git/
+paru -S --noconfirm --needed brave-bin sparrow-wallet crispy-doom-git picom-ftlabs-git jellyfin-media-player
 #  tor-browser-bin
 
 sudo timedatectl set-timezone America/Chicago
@@ -85,15 +86,11 @@ cp -rf polybar/ ~/.config/
 rm ~/.xprofile
 cp .xprofile ~/
 
-rm -rf ~/.config/nvim
-rm -rf ~/.local/share/nvim
-rm -rf ~/.local/state/nvim
-rm -rf ~/.cache/nvim
-rm -rf ~/.config/nvim/.git
-
-git clone https://github.com/NvChad/starter ~/.config/nvim
-rm -rf ~/.config/nvim/lua/chadrc.lua
-cp chadrc.lua ~/.config/nvim/lua/
+LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
+chmod +x ~/.local/bin/lvim
+sudo cp ~/.local/bin/lvim /bin
+rm ~/.config/lvim/
+cp lvim/ ~/.config -rf
 
 xdg-mime default eog.desktop image/*
 
@@ -108,6 +105,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 rm -rf ~/.config/rofi/
 cp -rf rofi/ ~/.config/
 
+rm -rf ~/Wallpaper/
 cp -rf Wallpaper/ ~/
 
 sudo rm /etc/ly/config.ini
@@ -152,6 +150,10 @@ if sudo grep -q '^HandleLidSwitchDocked=' /etc/systemd/logind.conf; then
 else
   echo 'HandleLidSwitchDocked=ignore' | sudo tee -a /etc/systemd/logind.conf >/dev/null
 fi
+
+
+chmod +x themestuffs.sh
+./themestuffs.sh
 
 
 # ============================ #

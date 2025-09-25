@@ -1,0 +1,5 @@
+
+git status               # see what changed
+git add .                # stage all changes
+git commit -m "switched colourscheme to orange"   # commit them
+git push origin main     # push to GitHub

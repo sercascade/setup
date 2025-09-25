@@ -3,8 +3,9 @@
 
 alias ls='ls --color=auto -la'
 alias grep='grep --color=auto'
-alias vim='nvim'
 alias brave='QT_QPA_PLATFORMTHEME= brave-browser'
+#alias vim='nvim'
+alias vim='lvim'
 
 #PS1='[\u@\h \W]\$ ' # default bash promtp :D
 
