@@ -1,18 +1,18 @@
 * {
-  bg0     : #100706;
-  bg1     : #100706;
-  bg2     : #100706;
-  bg3     : #f9752f;
-  fg0     : #f3d8aa;
-  fg1     : #f3d8aa;
-  fg2     : #f3d8aa;
+  bg0     : #1e1715;
+  bg1     : #1e1715;
+  bg2     : #1e1715;
+  bg3     : #eb614a;
+  fg0     : #f4f4f4;
+  fg1     : #f4f4f4;
+  fg2     : #f4f4f4;
 
-  red     : #f9752f;
-  green   : #f9752f;
-  yellow  : #f9752f;
-  blue    : #f9752f;
-  magenta : #f9752f;
-  cyan    : #f3d8aa;
+  red     : #eb614a;
+  green   : #eb614a;
+  yellow  : #eb614a;
+  blue    : #eb614a;
+  magenta : #eb614a;
+  cyan    : #f4f4f4;
   
   accent  : @green;
   urgent  : @yellow;

@@ -1,12 +1,12 @@
 # ── Variables
 set $mod Mod4
 set $terminal "WINIT_X11_SCALE_FACTOR=2 alacritty"
-set $termexec "WINIT_X11_SCALE_FACTOR=2 alacritty -e"
+set $termexec "~/terminal-i3-exec.sh"
 set $browser brave
 set $menu rofi -show drun
 set $cursor Breeze_Snow
 set $fileManager "WINIT_X11_SCALE_FACTOR=2 alacritty -e ranger" 
-set $guiFileManager thunar
+set $guiFileManager nautilus
 
 font pango:JetBrains Mono 10
 
@@ -18,13 +18,13 @@ bindsym $mod+Shift+e exit
 bindsym $mod+Q kill
 
 # ── appearance
-gaps inner 0
+gaps inner 20
 gaps outer 0
 
-client.focused          #ff0000 #00ff00 #0000ff #f3d8aa #d25e2c
-client.unfocused        #ff0000 #00ff00 #0000ff #f3d8aa #100706
-client.focused_inactive #ff0000 #00ff00 #0000ff #af5f45 #af5f45
-client.urgent           #ff0000 #00ff00 #0000ff #ffff00 #ff00ff
+client.focused          #fcc8b4 #fcc8b4 #fcc8b4 #fe902f #fcc8b4 
+client.unfocused        #1e1715 #1e1715 #1e1715 #1e1715 #1e1715
+client.focused_inactive #1e1715 #1e1715 #1e1715 #1e1715 #1e1715
+client.urgent           #ff6600 #ff6600 #ff6600 #ff6600 #ff6600
 
 for_window [class=".*"] border pixel 2
 new_window pixel 2
@@ -45,7 +45,7 @@ exec_always xset s off -dpms
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec_always systemctl --user import-environment XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
-exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/ 200
+exec_always feh_cycle_wallpaper.py /home/cascade/Wallpaper/warm_train.png 200
 exec_always --no-startup-id xsettingsd
 exec_always pkill steam
 exec_always --no-startup-id unclutter -idle 3
@@ -63,6 +63,8 @@ bindsym $mod+X exec $browser
 bindsym $mod+o exec --no-startup-id /usr/bin/tor-browser
 bindsym $mod+T exec jellyfinmediaplayer
 
+#"paru -Syyu --noconfirm"
+
 bindsym Mod1+q exec blueberry
 for_window [class="blueberry"] floating enable
 bindsym Mod1+w exec gnome-calculator
@@ -71,8 +73,7 @@ bindsym Mod1+e exec pavucontrol
 for_window [class="pavucontrol"] floating enable
 bindsym Mod1+r exec maim -s ~/Pictures/Screenshots/screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png
 bindsym Mod1+t exec xpickcolour.sh
-bindsym Mod1+a exec alacritty -e fuzzy_file_finder
-bindsym Mod1+s exec lxappearance
+bindsym Mod1+a exec lxappearance
 
 # ── Window movement
 bindsym $mod+h focus left

@@ -1,30 +1,30 @@
 [colors.primary]
-background = "#100706"
-foreground = "#f3d8aa"
+background = "#1e1715"
+foreground = "#fcc8b4"
 
 [colors.cursor]
-cursor = "#f3d8aa"
+cursor = "#fcc8b4"
 text = "CellBackground"
 
 [colors.normal]
-black   = "#100706" # color0
-red     = "#D25E2C" # color1
-green   = "#F9752F" # color2
-yellow  = "#AF5F45" # color3
-blue    = "#FD8A35" # color4
-magenta = "#F19D38" # color5
-cyan    = "#f3d8aa" # color6
-white   = "#f3d8aa" # color7
+black   = "#1e1715" # color0
+red     = "#fdb171" # color1
+green   = "#f7a66b" # color2
+yellow  = "#ffba81" # color3
+blue    = "#fca968" # color4
+magenta = "#f89a4f" # color5
+cyan    = "#f58d45" # color6
+white   = "#fcc8b4" # color7
 
 [colors.bright]
-black   = "#100706" # color8
-red     = "#F19D38" # color9
-green   = "#FD8A35" # color10
-yellow  = "#AF5F45" # color11
-blue    = "#F9752F" # color12
-magenta = "#D25E2C" # color13
-cyan    = "#aa9776" # color14
-white   = "#f3d8aa" # color15
+black   = "#1e1715" # color8
+red     = "#a96f5a" # color9
+green   = "#f3b874" # color10
+yellow  = "#ef9652" # color11
+blue    = "#8a3e2d" # color12
+magenta = "#ec5832" # color13
+cyan    = "#ff8131" # color14
+white   = "#fcc8b4" # color15
 
 [cursor]
 blink_interval = 270
@@ -35,7 +35,7 @@ blinking = "On"
 shape = "Underline"
 
 [font]
-size = 4.6
+size = 4.9
 
 [font.bold]
 family = "Jetbrains Mono Nerd Font"
@@ -56,7 +56,7 @@ hide_when_typing = true
 blur = true
 decorations = "full"
 dynamic_padding = false
-opacity = 0.7
+opacity = 0.82
 startup_mode = "Windowed"
 
 [window.padding]

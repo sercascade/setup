@@ -15,7 +15,7 @@ configuration {
 * {
     font: "Iosevka Nerd Font 12";
 
-    background-color:   transparent;
+    background-color:   rgba(30, 23, 21, 0);
     text-color:         @fg0;
 
     margin:     0px;
@@ -31,7 +31,7 @@ window {
 
     border: 1px;
     border-color: @bg3;
-    background-color: rgba(12, 18, 25, 0.82);
+    background-color:   rgba(30, 23, 21, 0.82);
 }
 
 mainbox {
