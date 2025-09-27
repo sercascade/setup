@@ -13,7 +13,97 @@ sudo cp pacman.conf /etc/pacman.conf
 
 sudo pacman -Sy --noconfirm
 
-sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger lxappearance gtk-update-icon-cache gdk-pixbuf2 gnome-keyring libsecret unclutter nautilus dosfstools
+missing_pacman=()
+missing_paru=()
+
+packages_pacman=(
+    git
+    base-devel
+    networkmanager
+    vim
+    alacritty
+    i3
+    i3-gaps
+    rust
+    ttf-jetbrains-mono-nerd
+    ttf-jetbrains-mono
+    fastfetch
+    python-pip
+    npm
+    python
+    neovim
+    btop
+    rofi
+    bluez
+    feh
+    xclip
+    mesa
+    xf86-video-intel
+    mesa-demos
+    eog
+    pavucontrol
+    blueberry
+    krita
+    polybar
+    qbittorrent
+    unzip
+    zip
+    wget
+    ly
+    qt5-declarative
+    qt5-tools
+    kdeclarative
+    kirigami2
+    plasma-framework5
+    gnome-calculator
+    7zip
+    xorg-xev
+    xorg-xinput
+    xorg-xinit
+    xorg-server
+    xorg-xauth
+    openssh
+    fzf
+    xsettingsd
+    xcolor
+    reflector
+    trash-cli
+    vulkan-tools
+    xf86-input-wacom
+    xf86-video-intel
+    git-filter-repo
+    ranger
+    lxappearance
+    gtk-update-icon-cache
+    gdk-pixbuf2
+    gnome-keyring
+    libsecret
+    unclutter
+    nautilus
+    dosfstools
+)
+
+packages_paru=(
+    brave-bin
+    sparrow-wallet
+    crispy-doom-git
+    picom-ftlabs-git
+    jellyfin-media-player
+)
+
+# Function to install pacman packages if they exist
+for pkg in "${packages_pacman[@]}"; do
+    if pacman -Si "$pkg" &> /dev/null; then
+        echo "Installing pacman package: $pkg"
+        sudo pacman -S --needed --noconfirm "$pkg"
+    else
+        echo "Skipping missing pacman package: $pkg"
+        missing_pacman+=("$pkg")
+
+    fi
+done
+
+#sudo pacman -S --needed --noconfirm git base-devel networkmanager vim alacritty i3 i3-gaps rust ttf-jetbrains-mono-nerd ttf-jetbrains-mono fastfetch python-pip npm python neovim btop rofi bluez feh xclip mesa xf86-video-intel mesa-demos eog pavucontrol blueberry krita polybar qbittorrent unzip zip wget ly qt5-declarative qt5-tools kdeclarative kirigami2 plasma-framework5 gnome-calculator 7zip xorg-xev xorg-xinput xorg-xinit xorg-server xorg-xauth openssh fzf xsettingsd xcolor reflector trash-cli vulkan-tools xf86-input-wacom xf86-video-intel git-filter-repo ranger lxappearance gtk-update-icon-cache gdk-pixbuf2 gnome-keyring libsecret unclutter nautilus dosfstools
 
 # kdenlive
 
@@ -22,8 +112,28 @@ cd paru-git
 makepkg -si
 cd ..
 rm -rf paru-git/
-paru -S --noconfirm --needed brave-bin sparrow-wallet crispy-doom-git picom-ftlabs-git jellyfin-media-player
+#paru -S --noconfirm --needed brave-bin sparrow-wallet crispy-doom-git picom-ftlabs-git jellyfin-media-player
 #  tor-browser-bin
+
+# function to install AUR packages via paru if they exist
+for pkg in "${packages_paru[@]}"; do
+    if paru -Si "$pkg" &> /dev/null; then
+        echo "Installing AUR package: $pkg"
+        paru -S --needed --noconfirm "$pkg"
+    else
+        echo "Skipping missing AUR package: $pkg"
+        missing_paru+=("$pkg")
+
+    fi
+done
+
+{
+    echo "missing pacman:"
+    printf "    %s\n" "${missing_pacman[*]}"
+    echo
+    echo "missing paru:"
+    printf "    %s\n" "${missing_paru[*]}"
+} > ~/missingpackages.txt
 
 sudo timedatectl set-timezone America/Chicago
 sudo gdk-pixbuf-query-loaders --update-cache
